@@ -1,0 +1,10 @@
+.vagrant
+*.box
+vagrant.log
+id_rsa
+ezcluster/crontab.ec2-user
+ezcluster/*.xml
+*.crt
+*.csr
+*.key
+*.id_rsa
