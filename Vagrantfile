@@ -4,12 +4,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.define :centos7
-    config.vm.box = "centos7"
+    config.vm.define :centos7a
+    config.vm.box = "centos7a"
 	config.vm.provision :shell, :path => "bootstrap.sh"
     config.vm.boot_timeout = 1000
-    config.vm.box_url = "https://f0fff3908f081cb6461b407be80daf97f07ac418.googledrive.com/host/0BwtuV7VyVTSkUG1PM3pCeDJ4dVE/centos7.box"
-
+    config.vm.box_url = "https://dl.dropboxusercontent.com/s/w3lbekm7eunrskm/centos-7.0-x86_64.box"
+    config.vbguest.auto_update = false
     config.ssh.forward_agent = true
 	config.vm.network "public_network", bridge: 'en1: Wi-Fi (AirPort)'
     config.vm.network :forwarded_port, host: 80, guest: 80
@@ -23,8 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #   config.vm.network :forwarded_port, host: 10137, guest: 10137
 #   config.vm.network :forwarded_port, host: 20080, guest: 20080
     private_key_path = "insecure_private_key"
-
-#    config.ssh.username = "root"
+    config.vm.synced_folder "provision", "/provision"
 
     # Allow symlinks
 #    config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/cross-compiler", "1"]
