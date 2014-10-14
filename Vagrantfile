@@ -4,11 +4,11 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.define :centos7a
-    config.vm.box = "centos7a"
-	config.vm.provision :shell, :path => "bootstrap.sh"
+    config.vm.define :centos7
+    config.vm.box = "xrow/centos7"
+	config.vm.box_url = "fhttps://s3-eu-west-1.amazonaws.com/xrow/downloads/images/CentOS7.box"
+#	config.vm.provision :shell, :path => "bootstrap.sh"
     config.vm.boot_timeout = 1000
-    config.vm.box_url = "https://dl.dropboxusercontent.com/s/w3lbekm7eunrskm/centos-7.0-x86_64.box"
     config.vbguest.auto_update = false
     config.ssh.forward_agent = true
 	config.vm.network "public_network", bridge: 'en1: Wi-Fi (AirPort)'
