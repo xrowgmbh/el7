@@ -57,3 +57,8 @@
    - sudo
    - zip
    - tar
+   
+- name: Uninstall some unusefull tools
+  yum: name={{ item }} state=removed
+  with_items:
+   - firewalld
