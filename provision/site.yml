@@ -37,3 +37,9 @@
   roles:
   - base-apache
   - nagios
+
+  # Configure and deploy the build node(s).
+- hosts: build
+  user: root
+  roles:
+  - php

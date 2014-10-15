@@ -7,3 +7,12 @@ localhost
 
 
 [monitoring]
+
+[build]
+localhost
+
+[tower]
+localhost
+
+[foreman]
+localhost
