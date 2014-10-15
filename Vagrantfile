@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define :centos7
     config.vm.box = "xrow/centos7"
-	config.vm.box_url = "fhttps://s3-eu-west-1.amazonaws.com/xrow/downloads/images/CentOS7.box"
+	config.vm.box_url = "https://s3-eu-west-1.amazonaws.com/xrow/downloads/images/CentOS7.box"
 #	config.vm.provision :shell, :path => "bootstrap.sh"
     config.vm.boot_timeout = 1000
     config.vbguest.auto_update = false
@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #   config.vm.network :forwarded_port, host: 10137, guest: 10137
 #   config.vm.network :forwarded_port, host: 20080, guest: 20080
     private_key_path = "insecure_private_key"
-    config.vm.synced_folder "provision", "/provision"
+    config.vm.synced_folder "provision", "/provision", :mount_options => ["dmode=777","fmode=666"]
 
     # Allow symlinks
 #    config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/cross-compiler", "1"]

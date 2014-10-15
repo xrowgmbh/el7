@@ -5,17 +5,30 @@ php_apc_conf_filename: apc.ini
 __php_packages:
   - ImageMagick
   - php
+  - php-bcmath
+  - php-devel
+  - php-enchant
   - php-cli
   - php-common
   - php-devel
   - php-fpm
   - php-gd
   - php-imap
+  - php-intl
   - php-ldap
   - php-mbstring
+  - php-mysqlnd
   - php-pdo
   - php-pear
-  - php-pecl-apc
+  - php-pecl-memcached
+  - php-pecl-ssh2
+  - php-pecl-http 
+  - php-process
+  - php-pspell 
+  - php-soap
+  - php-tidy
   - php-xml
   - php-xmlrpc
+#  - php-zend-debugger
+
 php_webserver_daemon: "httpd"

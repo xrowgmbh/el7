@@ -1,8 +1,10 @@
+localhost
+
 [webservers]
-127.0.0.1
+localhost
 
 [lbservers]
-127.0.0.1
+localhost
 
 [monitoring]
-127.0.0.1
+localhost

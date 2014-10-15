@@ -1,9 +1,12 @@
 ---
-# This playbook deploys the whole application stack in this site.  
+# This playbook deploys the whole application stack in this site.
+
+# ansible-playbook sites.yml -i hosts --connection=local
 
 # Apply common configuration to all hosts
 - hosts: all
   roles:
+  - ntp
   - common
 
 # Configure and deploy database servers.
@@ -17,10 +20,12 @@
 # our example web application.
 - hosts: webservers
   user: root
-
   roles:
+  - common
+  - ntp
   - base-apache
-  - web
+  - php
+  - environment
 
 # Configure and deploy the load balancer(s).
 - hosts: lbservers
