@@ -4,7 +4,6 @@ localhost
 localhost
 
 [lbservers]
-localhost
+
 
 [monitoring]
-localhost

@@ -4,5 +4,14 @@
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
 
+- name: Ensure directory /var/www/sites
+  file: path=/var/www/sites state=directory owner=root recurse=true
+
+- name: Define environments.
+  set_fact:
+    environments: "{{ environments | list }}"
+  when: environments is not defined
+  
 - name: Copy the code from repository
-  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
+  git: name={{ item.git }} version={{ item.branch }} dest=/var/www/sites/{{ item.name }}
+  with_items: environments

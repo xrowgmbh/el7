@@ -40,3 +40,20 @@
   command: getenforce
   register: sestatus
   changed_when: false
+  
+- name: Install some usefull tools
+  yum: name={{ item }} state=present
+  with_items:
+   - yum-utils
+   - ImageMagick, xpdf
+   - crontabs
+   - git
+   - telnet
+   - lynx
+   - nano
+   - subversion
+   - bind-utils
+   - sysstat
+   - sudo
+   - zip
+   - tar

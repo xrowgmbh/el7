@@ -6,8 +6,8 @@
 # Apply common configuration to all hosts
 - hosts: all
   roles:
-  - ntp
   - common
+  - ntp
 
 # Configure and deploy database servers.
 - hosts: dbservers
@@ -21,8 +21,6 @@
 - hosts: webservers
   user: root
   roles:
-  - common
-  - ntp
   - base-apache
   - php
   - environment
