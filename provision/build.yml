@@ -1,0 +1,12 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+# ansible-playbook build.yml -i hosts --connection=local
+
+# Apply common configuration the build host
+- hosts: build
+  roles:
+  - common
+  - ntp
+  - php
+  - build
