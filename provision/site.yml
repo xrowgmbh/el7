@@ -9,6 +9,14 @@
   - common
   - ntp
 
+# Apply common configuration the build host
+- hosts: all
+  roles:
+  - common
+  - ntp
+  - php
+  - build
+
 # Configure and deploy database servers.
 - hosts: dbservers
   user: root
