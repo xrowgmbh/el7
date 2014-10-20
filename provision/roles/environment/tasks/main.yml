@@ -4,9 +4,17 @@
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
 
+- name: Delete some defaults
+  file: path=/etc/httpd/conf.d/welcome.conf state=absent
+  notify: Restart Apache
+
+- name: Delete some defaults
+  file: path=/etc/httpd/conf.d/userdir.conf state=absent
+  notify: Restart Apache 
+
 - name: Ensure directory /var/www/sites
   file: path=/var/www/sites state=directory owner=root recurse=true
-
+  
 - name: Define environments.
   set_fact:
     environments: "{{ environments | list }}"
@@ -15,3 +23,17 @@
 - name: Copy the code from repository
   git: name={{ item.git }} version={{ item.branch }} dest=/var/www/sites/{{ item.name }}
   with_items: environments
+
+- name: Include environments
+  template:
+    src=sites-include.conf
+    dest=/etc/httpd/conf.d/001-sites.conf
+  with_items: environments
+  notify: Restart Apache 
+
+- name: Generate environments
+  template:
+    src=vhost.conf
+    dest=/etc/httpd/sites/{{ item.name }}.conf
+  with_items: environments
+  notify: Restart Apache 
