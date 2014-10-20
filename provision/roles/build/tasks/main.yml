@@ -4,7 +4,6 @@
 - name: install some useful packages
   yum: name={{ item }} state=present
   with_items:
-   - install
    - libxml2-devel
    - libxslt-devel
    - libvirt-devel
