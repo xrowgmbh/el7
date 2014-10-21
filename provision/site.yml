@@ -19,10 +19,10 @@
   - build
 
 # Configure and deploy database servers.
-- hosts: dbservers
-  user: root
-  roles:
-  - db
+#- hosts: dbservers
+#  user: root
+#  roles:
+#  - db
 
 # Configure and deploy the web servers. Note that we include two roles here, 
 # the 'base-apache' role which simply sets up Apache, and 'web' which includes

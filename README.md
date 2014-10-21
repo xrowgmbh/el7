@@ -1,9 +1,6 @@
 el7
 ===
 
-Setup required
-
-sh bootstrap.sh
 
 Deploy Local Webserver
 

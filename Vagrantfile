@@ -25,10 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     private_key_path = "insecure_private_key"
     config.vm.synced_folder "provision", "/provision", :mount_options => ["dmode=777","fmode=666"]
 
-    # Allow symlinks
-#    config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/cross-compiler", "1"]
-
     config.vm.provider "virtualbox" do |v|
-        v.customize ["modifyvm", :id, "--memory", "4096"]
+        v.customize ["modifyvm", :id, "--memory", "2048"]
     end
 end
