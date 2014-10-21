@@ -6,15 +6,15 @@
 
 - name: Delete some defaults
   file: path=/etc/httpd/conf.d/welcome.conf state=absent
-  notify: Restart Apache
+  notify: restart httpd
 
 - name: Delete some defaults
   file: path=/etc/httpd/conf.d/userdir.conf state=absent
-  notify: Restart Apache 
+  notify: restart httpd 
 
 - name: Ensure directory /var/www/sites
   file: path=/var/www/sites state=directory owner=root recurse=true
-  
+
 - name: Define environments.
   set_fact:
     environments: "{{ environments | list }}"
@@ -24,16 +24,24 @@
   git: name={{ item.git }} version={{ item.branch }} dest=/var/www/sites/{{ item.name }}
   with_items: environments
 
-- name: Include environments
-  template:
-    src=sites-include.conf
-    dest=/etc/httpd/conf.d/001-sites.conf
-  with_items: environments
-  notify: Restart Apache 
+- name: Ensure directory /etc/httpd/sites
+  file: path=/etc/httpd/sites state=directory owner=root recurse=true
 
 - name: Generate environments
   template:
-    src=vhost.conf
-    dest=/etc/httpd/sites/{{ item.name }}.conf
+    src: vhost.conf
+    dest: /etc/httpd/sites/{{ item.name }}.conf
+    owner: root
+    group: root
+    mode: 0644
   with_items: environments
-  notify: Restart Apache 
+
+- name: Include environments
+  template:
+    src: sites-include.conf
+    dest: /etc/httpd/conf.d/001-sites.conf
+    owner: root
+    group: root
+    mode: 0644
+  with_items: environments
+  notify: restart webserver

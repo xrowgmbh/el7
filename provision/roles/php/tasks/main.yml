@@ -2,34 +2,44 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Define php_packages.
-  set_fact:
-    php_packages: "{{ __php_packages | list }}"
-  when: php_packages is not defined
-
 - name: Ensure PHP packages are removed (RedHat).
   yum:
     name: "php-mysql"
     state: removed
-    enablerepo: "{{ php_enablerepo }}"
-  when: ansible_os_family == 'RedHat'
 
 - name: Ensure PHP packages are installed (RedHat).
   yum:
     name: "{{ item }}"
     state: installed
-    enablerepo: "{{ php_enablerepo }}"
-  with_items: php_packages
+  with_items:
+    - ImageMagick
+    - php
+    - php-bcmath
+    - php-devel
+    - php-enchant
+    - php-cli
+    - php-common
+    - php-devel
+    - php-fpm
+    - php-gd
+    - php-imap
+    - php-intl
+    - php-ldap
+    - php-mbstring
+    - php-mysqlnd
+    - php-pdo
+    - php-pear
+    - php-pecl-memcached
+    - php-pecl-ssh2
+    - php-pecl-http 
+    - php-process
+    - php-pspell 
+    - php-soap
+    - php-tidy
+    - php-xml
+    - php-xmlrpc
+    - php-pecl-zendopcache
   notify: restart webserver
-  when: ansible_os_family == 'RedHat'
-
-- name: Ensure PHP packages are installed (Debian).
-  apt:
-    name: "{{ item }}"
-    state: installed
-  with_items: php_packages
-  notify: restart webserver
-  when: ansible_os_family == 'Debian'
 
 - name: Ensure configuration directories exist.
   file:
@@ -47,7 +57,7 @@
     group: root
     mode: 0644
   notify: restart webserver
-
+  
 - name: Ensure php-fpm is started and enabled at boot (if configured).
   service:
     name: php-fpm

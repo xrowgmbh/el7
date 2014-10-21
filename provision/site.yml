@@ -5,12 +5,13 @@
 
 # Apply common configuration to all hosts
 - hosts: all
+  sudo: yes
   roles:
   - common
   - ntp
 
 # Apply common configuration the build host
-- hosts: all
+- hosts: build
   roles:
   - common
   - ntp

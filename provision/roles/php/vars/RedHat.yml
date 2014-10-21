@@ -1,7 +1,6 @@
 ---
 php_conf_path: /etc
 php_extension_conf_path: /etc/php.d
-php_apc_conf_filename: apc.ini
 __php_packages:
   - ImageMagick
   - php
@@ -29,6 +28,7 @@ __php_packages:
   - php-tidy
   - php-xml
   - php-xmlrpc
+  - php-pecl-zendopcache
 #  - php-zend-debugger
 
 php_webserver_daemon: "httpd"
