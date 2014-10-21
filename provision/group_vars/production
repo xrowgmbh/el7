@@ -1,0 +1,5 @@
+---
+# Variables for the production configuration
+
+newrelic_license_key: ab2fa361cd4d0d373833cad619d7bcc424d27c16
+branch: master

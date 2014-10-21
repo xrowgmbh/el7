@@ -32,12 +32,14 @@
   roles:
   - base-apache
   - php
+  - newrelic
   - environment
 
 # Configure and deploy the load balancer(s).
-- hosts: lbservers
+- hosts: loadbalancers
   user: root
   roles:
+  - varnish
   - haproxy
 
 # Configure and deploy the Nagios monitoring node(s).

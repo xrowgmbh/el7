@@ -3,8 +3,8 @@ localhost
 [webservers]
 localhost
 
-[lbservers]
-
+[loadbalancers]
+localhost
 
 [monitoring]
 

@@ -4,14 +4,35 @@
     msg: "newrelic_license_key has not been defined"
   when: newrelic_license_key|default(False) == False
 
-- include: debian.yml
-  when: ansible_os_family == 'Debian'
+- name: RedHat | Add the New Relic repository key
+  copy:
+    src: RPM-GPG-KEY-NewRelic
+    dest: /etc/pki/rpm-gpg
+    owner: root
+    group: root
+    mode: 0644
 
-- include: redhat.yml
-  when: ansible_os_family == 'RedHat'
+- name: RedHat | Add the Rew Relic repository file
+  copy:
+    src: newrelic.repo
+    dest: /etc/yum.repos.d/newrelic.repo
+    owner: root
+    group: root
+    mode: 0644
 
-- include: default.yml
-  when: newrelic_loaded_os_family|default(False) == False
+- name: RedHat | Install New Relic PHP
+  yum:
+    name: newrelic-php5
+    state: latest
+  notify:
+    - restart newrelic
+
+- name: RedHat | Install New Relic Sysmond
+  yum:
+    name: newrelic-sysmond
+    state: latest
+  notify:
+    - Restart New Relic
 
 - name: Configure New Relic Sysmond
   template:
@@ -21,8 +42,7 @@
     owner: root
     mode: 0640
   notify:
-    - Restart New Relic
-  when: newrelic_loaded_os_family|default(False) != False
+    - restart newrelic
 
 - name: Ensure New Relic Sysmond is started and enabled
   service:
